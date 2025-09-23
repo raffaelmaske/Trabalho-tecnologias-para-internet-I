@@ -13,6 +13,13 @@ public class Desenvolvedora {
         this.email = email;
     }
 
+    public String toString() {
+        return "Usuário [Username= " + nome + "," +
+                " Nickname= " + idFiscal + "," +
+                ", Email= " + email +
+                ", País= " + pais + "]";
+    }
+
     public String getNome() {
         return nome;
     }

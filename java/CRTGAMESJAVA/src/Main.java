@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static java.lang.Runtime.*;
+
 public class Main {
 
     public static void main(String[] args) {
@@ -23,8 +25,9 @@ public class Main {
                 System.out.println("Erro: Por favor, digite um número válido.");
                 opcao = 1;
                 continue;
-            }
 
+            }
+            scanner.nextLine();
             switch (opcao) {
                 case 1:
                     cadastrarJogo(scanner, jogos);
@@ -65,7 +68,7 @@ public class Main {
         System.out.println("5. Listar Desenvolvedoras");
         System.out.println("6. Listar Usuários");
         System.out.println("0. Sair");
-        System.out.print("Escolha uma opção: ");
+
     }
 
     private static void cadastrarUsuario(Scanner scanner, List<Usuario> usuarios) {
@@ -136,7 +139,7 @@ public class Main {
         System.out.print("Preço (ex: 49.99): ");
         Double preco = scanner.nextDouble();
         System.out.print("Data de Lançamento (dd/MM/yyyy): ");
-        LocalDate data = LocalDate.parse(scanner.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        String data = scanner.nextLine();
 
         jogos.add(new CadJogo(titulo, dev, genero, data, preco));
         System.out.println("Jogo cadastrado com sucesso!");

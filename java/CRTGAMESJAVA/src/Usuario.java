@@ -10,6 +10,14 @@ public class Usuario {
         this.email = email;
         this.pais = pais;
     }
+
+    public String toString() {
+        return "Usuário [Username= " + nomeUsuario + "," +
+                " Nickname= " + nickname +
+                ", Email= " + email +
+                ", País= " + pais + "]";
+    }
+
     public String getNomeUsuario() {
         return nomeUsuario;
     }
