@@ -16,11 +16,11 @@ public class CadJogo {
 
     }
     public String toString() {
-        return "Usuário [Username= " + titulo + "," +
-                " Nickname= " + dev +
-                ", Email= " + genero +
-                ", País= " + preco +
-                ", Data= " + data +"]";
+        return  "\n Usuário [Username= " + titulo + "," +
+                "\n Nickname: " + dev +
+                "\n, Email: " + genero +
+                "\n, País: " + preco +
+                "\n, Data: " + data +"]";
     }
 
     public String getTitulo() {

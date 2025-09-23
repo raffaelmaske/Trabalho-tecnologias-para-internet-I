@@ -12,10 +12,10 @@ public class Usuario {
     }
 
     public String toString() {
-        return "Usuário [Username= " + nomeUsuario + "," +
-                " Nickname= " + nickname +
-                ", Email= " + email +
-                ", País= " + pais + "]";
+        return "\n Usuário [Username: " + nomeUsuario + "," +
+                "\n Nickname: " + nickname +
+                "\n, Email: " + email +
+                "\n, País: " + pais + "]";
     }
 
     public String getNomeUsuario() {

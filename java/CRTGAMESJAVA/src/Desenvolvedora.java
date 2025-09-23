@@ -14,10 +14,11 @@ public class Desenvolvedora {
     }
 
     public String toString() {
-        return "Usuário [Username= " + nome + "," +
-                " Nickname= " + idFiscal + "," +
-                ", Email= " + email +
-                ", País= " + pais + "]";
+        return  "\n  Estúdio: " + this.nome +
+                "\n  CNPJ: " + this.idFiscal +
+                "\n  País: " + this.pais +
+                "\n  Email: " + this.email+"]";
+
     }
 
     public String getNome() {
