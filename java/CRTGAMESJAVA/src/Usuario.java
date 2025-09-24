@@ -5,6 +5,7 @@ public class Usuario {
     private String pais;
 
     public Usuario(String nomeUsuario, String nickname, String email, String pais) {
+
     }
 
     public String toString() {
