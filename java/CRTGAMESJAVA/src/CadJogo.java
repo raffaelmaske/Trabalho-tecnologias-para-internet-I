@@ -10,17 +10,16 @@ public class CadJogo {
     public CadJogo(String titulo, String dev, String genero, String data, double preco) {
         this.titulo = titulo;
         this.dev = dev;
+        this.preco = preco;
         this.genero = genero;
         this.data = data;
-        this.preco = preco;
-
     }
     public String toString() {
-        return  "\n Usuário [Username= " + titulo + "," +
-                "\n Nickname: " + dev +
-                "\n, Email: " + genero +
-                "\n, País: " + preco +
-                "\n, Data: " + data +"]";
+        return  "\n Nome do jogo: " + titulo + "," +
+                "\n Desenvolvedora: " + dev +
+                "\n Genero: " + genero +
+                "\n Preco: " + preco +
+                "\n Data: " + data;
     }
 
     public String getTitulo() {
