@@ -1,9 +1,10 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
+import java.text.NumberFormat;
 import static java.lang.Runtime.*;
 
 public class Main {
@@ -129,6 +130,7 @@ public class Main {
 
 
     private static void cadastrarJogo(Scanner scanner, List<CadJogo> jogos) {
+
         System.out.println("\n--- Cadastro de Novo Jogo ---");
         System.out.print("Título do Jogo: ");
         String titulo = scanner.nextLine();
@@ -138,11 +140,24 @@ public class Main {
         String genero = scanner.nextLine();
         System.out.print("Preço (ex: 49.99): ");
         Double preco = scanner.nextDouble();
+//        NumberFormat.getCurrencyInstance().format(preco);
         System.out.print("Data de Lançamento (dd/MM/yyyy): ");
-        String data = scanner.nextLine();
+        scanner.nextLine();
+        boolean existeErro = true;
+        do {
+            DateTimeFormatter dataFormatada = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String data = scanner.nextLine();
+            try {
+                LocalDate date = LocalDate.parse(data, dataFormatada);
+                existeErro = false;
+                jogos.add(new CadJogo(titulo, dev, genero, data, preco));
+                System.out.println("Jogo cadastrado com sucesso!");
+            } catch (DateTimeParseException errorData) {
+                System.out.println("Data informada inválida: " + data +
+                        "\n Favor inserir data no formato: dd/MM/yyyy.");
+            }
+        }while (existeErro);
 
-        jogos.add(new CadJogo(titulo, dev, genero, data, preco));
-        System.out.println("Jogo cadastrado com sucesso!");
     }
 
     private static void listarJogos(List<CadJogo> jogos) {
@@ -151,6 +166,8 @@ public class Main {
             System.out.println("Nenhum jogo cadastrado.");
         } else {
             for (CadJogo jogo : jogos) {
+                double preco =  jogo.getPreco();
+                NumberFormat.getCurrencyInstance().format(preco);
                 System.out.println(jogo);
             }
         }
