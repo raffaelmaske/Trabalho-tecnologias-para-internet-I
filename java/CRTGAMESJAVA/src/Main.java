@@ -2,6 +2,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.text.NumberFormat;
@@ -14,17 +15,17 @@ public class Main {
         List<CadJogo> jogos = new ArrayList<>();
         List<Desenvolvedora> desenvolvedoras = new ArrayList<>();
         List<Usuario> usuarios = new ArrayList<>();
-        int opcao = 1;
+        int opcao ;
 
 
-        while (opcao != 0) {
+        do {
             exibirMenu();
             try {
                 System.out.println("Insira uma opção: ");
                 opcao = scanner.nextInt();
-            } catch (NumberFormatException e) {
+            } catch (InputMismatchException e) {
                 System.out.println("Erro: Por favor, digite um número válido.");
-                opcao = 1;
+                opcao = -1;
                 continue;
 
             }
@@ -55,7 +56,7 @@ public class Main {
                     System.out.println("Opção inválida. Tente novamente.");
             }
             System.out.println();
-        }
+        }while (opcao != 0);
 
         scanner.close();
     }
@@ -138,7 +139,7 @@ public class Main {
         String dev = scanner.nextLine();
         System.out.print("Gênero: ");
         String genero = scanner.nextLine();
-        System.out.print("Preço (ex: 49.99): ");
+        System.out.print("Preço (ex: 49,99): ");
         Double preco = scanner.nextDouble();
 //        NumberFormat.getCurrencyInstance().format(preco);
         System.out.print("Data de Lançamento (dd/MM/yyyy): ");
