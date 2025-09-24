@@ -5,11 +5,14 @@ public class Usuario {
     private String pais;
 
     public Usuario(String nomeUsuario, String nickname, String email, String pais) {
-
+        this.nomeUsuario = nomeUsuario;
+        this.nickname = nickname;
+        this.email = email;
+        this.pais = pais;
     }
 
     public String toString() {
-        return "\n Nome de usuario: " + nomeUsuario + "," +
+        return "\n Nome de usuario: " + nomeUsuario+
                 "\n Nickname: " + nickname +
                 "\n Email: " + email +
                 "\n País: " + pais ;
@@ -36,8 +39,8 @@ public class Usuario {
     }
 
     public void setEmail(String email) {
-        this.email = email;
     }
+
 
     public String getPais() {
         return pais;
