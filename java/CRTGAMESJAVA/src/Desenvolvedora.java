@@ -17,7 +17,7 @@ public class Desenvolvedora {
         return  "\n  Estúdio: " + this.nome +
                 "\n  CNPJ: " + this.idFiscal +
                 "\n  País: " + this.pais +
-                "\n  Email: " + this.email+"]";
+                "\n  Email: " + this.email;
 
     }
 

@@ -15,7 +15,7 @@ public class CadJogo {
         this.data = data;
     }
     public String toString() {
-        return  "\n Nome do jogo: " + titulo + "," +
+        return  "\n Nome do jogo: " + titulo+
                 "\n Desenvolvedora: " + dev +
                 "\n Genero: " + genero +
                 "\n Preco: " + preco +
