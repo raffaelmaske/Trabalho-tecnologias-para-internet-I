@@ -17,7 +17,7 @@ public class Main {
         int opcao = -1;
 
 
-        while (opcao != 0) {
+       do {
             exibirMenu();
             try {
                 System.out.println("Insira uma opção: ");
@@ -55,7 +55,7 @@ public class Main {
                     System.out.println("Opção inválida. Tente novamente.");
             }
             System.out.println();
-        }
+        } while (opcao != 0);
 
         scanner.close();
     }
