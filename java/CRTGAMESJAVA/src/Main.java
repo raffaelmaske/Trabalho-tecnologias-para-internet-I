@@ -2,7 +2,6 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 import java.text.NumberFormat;
@@ -15,15 +14,15 @@ public class Main {
         List<CadJogo> jogos = new ArrayList<>();
         List<Desenvolvedora> desenvolvedoras = new ArrayList<>();
         List<Usuario> usuarios = new ArrayList<>();
-        int opcao ;
+        int opcao = -1;
 
 
-        do {
+        while (opcao != 0) {
             exibirMenu();
             try {
                 System.out.println("Insira uma opção: ");
                 opcao = scanner.nextInt();
-            } catch (InputMismatchException e) {
+            } catch (NumberFormatException e) {
                 System.out.println("Erro: Por favor, digite um número válido.");
                 opcao = -1;
                 continue;
@@ -56,7 +55,7 @@ public class Main {
                     System.out.println("Opção inválida. Tente novamente.");
             }
             System.out.println();
-        }while (opcao != 0);
+        }
 
         scanner.close();
     }
@@ -74,18 +73,29 @@ public class Main {
     }
 
     private static void cadastrarUsuario(Scanner scanner, List<Usuario> usuarios) {
-            System.out.println("\n--- Cadastro de Novo Usúario ---");
-            System.out.print("Nome do Usúario: ");
-            String nomeUsuario = scanner.nextLine();
-            System.out.print("Apelido do Usuario: ");
-            String nickname = scanner.nextLine();
-            System.out.print("email: ");
-            String email  = scanner.nextLine();
-            System.out.print("Pais: ");
-            String pais  = scanner.nextLine();
+        System.out.println("\n--- Cadastro de Novo Usúario ---");
+        System.out.print("Nome do Usúario: ");
+        String nomeUsuario = scanner.nextLine();
+        System.out.print("Apelido do Usuario: ");
+        String nickname = scanner.nextLine();
+        System.out.print("email: ");
+        String email = scanner.nextLine();
+        boolean isErrorEmail = true;
+        while (isErrorEmail){
+            String lowerEmail = email.toLowerCase();
+            if (lowerEmail != null && lowerEmail.contains("@") && lowerEmail.contains(".")) {
+                isErrorEmail = false;
+            } else {
+                System.out.println("Erro: O formato do e-mail é inválido.");
+                System.out.print("Digite novamente um email válido(contém @ e .): ");
+                email = scanner.nextLine();
+            }
+        }
+        System.out.print("Pais: ");
+        String pais = scanner.nextLine();
 
-            usuarios.add(new Usuario(nomeUsuario, nickname, email, pais));
-            System.out.println("Usuario cadastrado com sucesso!");
+        usuarios.add(new Usuario(nomeUsuario, nickname, email, pais));
+        System.out.println("Usuario cadastrado com sucesso!");
 
 
     }
@@ -113,6 +123,17 @@ public class Main {
         String pais = scanner.nextLine();
         System.out.print("E-mail de Contato: ");
         String email = scanner.nextLine();
+        boolean isErrorEmail = true;
+        while (isErrorEmail){
+            String lowerEmail = email.toLowerCase();
+            if (lowerEmail != null && lowerEmail.contains("@") && lowerEmail.contains(".")) {
+                isErrorEmail = false;
+            } else {
+                System.out.println("Erro: O formato do e-mail é inválido.");
+                System.out.print("Digite novamente um email válido(contém @ e .): ");
+                email = scanner.nextLine();
+            }
+        }
 
         desenvolvedoras.add(new Desenvolvedora(nome, email, pais, idFiscal));
         System.out.println("Desenvolvedora cadastrada com sucesso!");
@@ -144,20 +165,20 @@ public class Main {
 //        NumberFormat.getCurrencyInstance().format(preco);
         System.out.print("Data de Lançamento (dd/MM/yyyy): ");
         scanner.nextLine();
-        boolean existeErro = true;
+        boolean isError = true;
         do {
             DateTimeFormatter dataFormatada = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             String data = scanner.nextLine();
             try {
                 LocalDate date = LocalDate.parse(data, dataFormatada);
-                existeErro = false;
+                isError = false;
                 jogos.add(new CadJogo(titulo, dev, genero, data, preco));
                 System.out.println("Jogo cadastrado com sucesso!");
             } catch (DateTimeParseException errorData) {
                 System.out.println("Data informada inválida: " + data +
                         "\n Favor inserir data no formato: dd/MM/yyyy.");
             }
-        }while (existeErro);
+        }while (isError);
 
     }
 
@@ -167,8 +188,6 @@ public class Main {
             System.out.println("Nenhum jogo cadastrado.");
         } else {
             for (CadJogo jogo : jogos) {
-                double preco =  jogo.getPreco();
-                NumberFormat.getCurrencyInstance().format(preco);
                 System.out.println(jogo);
             }
         }
