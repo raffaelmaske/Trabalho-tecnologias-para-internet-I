@@ -1,3 +1,4 @@
+import javax.swing.text.NumberFormatter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -117,14 +118,36 @@ public class Main {
         System.out.println("\n--- Cadastro de Desenvolvedora ---");
         System.out.print("Nome do Estúdio: ");
         String nome = scanner.nextLine();
-        System.out.print("ID Fiscal (CNPJ): ");
+        System.out.print("CNPJ (Somente numeros): ");
         String idFiscal = scanner.nextLine();
+        boolean isErrorIdFiscal = true;
+        String cnpjFormatado;
+        while (isErrorIdFiscal) {
+                if (idFiscal != null && idFiscal.length() == 14) {
+                    idFiscal.replaceAll("\\D", "");
+                    if (idFiscal != null && idFiscal.length() == 14) {
+                        cnpjFormatado = idFiscal.substring(0, 2) + "."
+                            + idFiscal.substring(2, 5) + "."
+                            + idFiscal.substring(5, 8) + "/"
+                            + idFiscal.substring(8, 12) + "-"
+                            + idFiscal.substring(12, 14);
+                        idFiscal = cnpjFormatado;
+
+                    }
+                    isErrorIdFiscal = false;
+                }else {
+                System.out.println("CNPJ informado inválido, Favor inserir um CNPJ com 14 digitos(Somente numeros):");
+                System.out.println();
+                idFiscal = scanner.nextLine();
+//              isErrorIdFiscal = true;
+            }
+        }
         System.out.print("País de Origem: ");
         String pais = scanner.nextLine();
         System.out.print("E-mail de Contato: ");
         String email = scanner.nextLine();
         boolean isErrorEmail = true;
-        while (isErrorEmail){
+        while (isErrorEmail) {
             String lowerEmail = email.toLowerCase();
             if (lowerEmail != null && lowerEmail.contains("@") && lowerEmail.contains(".")) {
                 isErrorEmail = false;
@@ -162,7 +185,6 @@ public class Main {
         String genero = scanner.nextLine();
         System.out.print("Preço (ex: 49,99): ");
         Double preco = scanner.nextDouble();
-//        NumberFormat.getCurrencyInstance().format(preco);
         System.out.print("Data de Lançamento (dd/MM/yyyy): ");
         scanner.nextLine();
         boolean isError = true;
