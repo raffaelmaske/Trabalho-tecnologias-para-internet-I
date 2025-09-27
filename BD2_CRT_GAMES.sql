@@ -216,8 +216,7 @@ BEGIN
     IF EXISTS (SELECT 1 FROM inserted WHERE data_compra > CURRENT_TIMESTAMP)
     BEGIN
         ROLLBACK TRANSACTION;
-        RAISERROR ('Erro: A data da compra não pode ser uma data futura.', 16, 1);
-        RETURN;
+        print ('Erro: A data da compra não pode ser uma data futura.');
     END
 END
 
@@ -228,7 +227,8 @@ VALUES (1, 4, 0.00, GETDATE());
 INSERT INTO Compras (usuario_id, jogo_id, preco_pago, data_compra)
 VALUES(2, 4, 0.00, DATEADD(year, 1, GETDATE()));
 
-delete from Compras where date
+
+drop trigger TRG_ValidaDataCompra
 
 
 -------------------------FUNCTION-------------------------
