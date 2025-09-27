@@ -1,12 +1,12 @@
-import javax.swing.text.NumberFormatter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.text.NumberFormat;
-import static java.lang.Runtime.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class Main {
 
@@ -17,7 +17,6 @@ public class Main {
         List<Usuario> usuarios = new ArrayList<>();
         int opcao = -1;
 
-
        do {
             exibirMenu();
             try {
@@ -27,7 +26,6 @@ public class Main {
                 System.out.println("Erro: Por favor, digite um número válido.");
                 opcao = -1;
                 continue;
-
             }
             scanner.nextLine();
             switch (opcao) {
@@ -57,7 +55,6 @@ public class Main {
             }
             System.out.println();
         } while (opcao != 0);
-
         scanner.close();
     }
 
@@ -97,8 +94,6 @@ public class Main {
 
         usuarios.add(new Usuario(nomeUsuario, nickname, email, pais));
         System.out.println("Usuario cadastrado com sucesso!");
-
-
     }
 
     private static void listarUsuarios(List<Usuario> usuarios) {
@@ -110,10 +105,7 @@ public class Main {
                 System.out.println(nomes);
             }
         }
-
     }
-
-
     private static void cadastrarDesenvolvedora(Scanner scanner, List<Desenvolvedora> desenvolvedoras) {
         System.out.println("\n--- Cadastro de Desenvolvedora ---");
         System.out.print("Nome do Estúdio: ");
@@ -122,26 +114,43 @@ public class Main {
         String idFiscal = scanner.nextLine();
         boolean isErrorIdFiscal = true;
         String cnpjFormatado;
-        while (isErrorIdFiscal) {
-                if (idFiscal != null && idFiscal.length() == 14) {
-                    idFiscal.replaceAll("\\D", "");
-                    if (idFiscal != null && idFiscal.length() == 14) {
-                        cnpjFormatado = idFiscal.substring(0, 2) + "."
+        while(isErrorIdFiscal){
+            Pattern cnpjVerify = Pattern.compile("^[0-9]{14}$");
+            Matcher cnpjMatch = cnpjVerify.matcher(idFiscal);
+                if (cnpjMatch.find()) {
+                    System.out.println("CNPJ Informado é válido.");
+                    cnpjFormatado = idFiscal.substring(0, 2) + "."
                             + idFiscal.substring(2, 5) + "."
                             + idFiscal.substring(5, 8) + "/"
                             + idFiscal.substring(8, 12) + "-"
                             + idFiscal.substring(12, 14);
-                        idFiscal = cnpjFormatado;
-
-                    }
-                    isErrorIdFiscal = false;
+                              idFiscal = cnpjFormatado;
+                              isErrorIdFiscal = false;
                 }else {
-                System.out.println("CNPJ informado inválido, Favor inserir um CNPJ com 14 digitos(Somente numeros):");
-                System.out.println();
-                idFiscal = scanner.nextLine();
-//              isErrorIdFiscal = true;
-            }
+                    System.out.println("CNPJ informado inválido, Favor inserir um CNPJ com 14 digitos(Somente numeros):");
+                    idFiscal = scanner.nextLine();
+                }
         }
+//        while (isErrorIdFiscal) {
+////                if (idFiscal != null && idFiscal.length() == 14) {
+////                    idFiscal.replaceAll("\\D", "");
+////                    if (idFiscal != null && idFiscal.length() == 14) {
+//                        cnpjFormatado = idFiscal.substring(0, 2) + "."
+//                            + idFiscal.substring(2, 5) + "."
+//                            + idFiscal.substring(5, 8) + "/"
+//                            + idFiscal.substring(8, 12) + "-"
+//                            + idFiscal.substring(12, 14);
+//                        idFiscal = cnpjFormatado;
+//
+//                    }
+//                    isErrorIdFiscal = false;
+//                }else {
+//                System.out.println("CNPJ informado inválido, Favor inserir um CNPJ com 14 digitos(Somente numeros):");
+//                System.out.println();
+//                idFiscal = scanner.nextLine();
+////              isErrorIdFiscal = true;
+//            }
+//        }
         System.out.print("País de Origem: ");
         String pais = scanner.nextLine();
         System.out.print("E-mail de Contato: ");
@@ -157,7 +166,6 @@ public class Main {
                 email = scanner.nextLine();
             }
         }
-
         desenvolvedoras.add(new Desenvolvedora(nome, email, pais, idFiscal));
         System.out.println("Desenvolvedora cadastrada com sucesso!");
     }
@@ -173,9 +181,7 @@ public class Main {
         }
     }
 
-
     private static void cadastrarJogo(Scanner scanner, List<CadJogo> jogos) {
-
         System.out.println("\n--- Cadastro de Novo Jogo ---");
         System.out.print("Título do Jogo: ");
         String titulo = scanner.nextLine();
@@ -192,7 +198,7 @@ public class Main {
             DateTimeFormatter dataFormatada = DateTimeFormatter.ofPattern("dd/MM/yyyy");
             String data = scanner.nextLine();
             try {
-                LocalDate date = LocalDate.parse(data, dataFormatada);
+                LocalDate.parse(data, dataFormatada);
                 isError = false;
                 jogos.add(new CadJogo(titulo, dev, genero, data, preco));
                 System.out.println("Jogo cadastrado com sucesso!");
@@ -201,7 +207,6 @@ public class Main {
                         "\n Favor inserir data no formato: dd/MM/yyyy.");
             }
         }while (isError);
-
     }
 
     private static void listarJogos(List<CadJogo> jogos) {
