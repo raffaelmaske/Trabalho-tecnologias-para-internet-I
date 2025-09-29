@@ -155,24 +155,24 @@ order by preco desc
 -------------------------FUNÇÃO WHILE-------------------------
 
 DECLARE @CONTADOR VARCHAR(1000)
-SELECT @CONTADOR = '100002';
+SELECT @CONTADOR = '391029301203';
 
-WHILE @CONTADOR < 1000000
+WHILE 1=1
 BEGIN 
 
-IF @CONTADOR = 103000
-BEGIN
-		print 'pulando o 245'
-			SET @CONTADOR = @CONTADOR + 1
-	CONTINUE
-END
+	IF @CONTADOR = 250000
+		BEGIN
+			print 'pulando o numero '+ @CONTADOR
+				SET @CONTADOR = @CONTADOR + 1
+			CONTINUE
+		END
 	PRINT 'INSERINDO'
-	INSERT INTO Usuarios (nickname, email, senha, pais) VALUES ('cjota' + @CONTADOR, 'carlos'+ @CONTADOR + '@email.com', 'senhadocarlos', 'Brasil')
-	IF @CONTADOR = 105000
-BEGIN
-		print 'finalizado'
-	BREAK
-END
+	INSERT INTO Usuarios (nickname, email, senha, pais) VALUES ('cjota' + @CONTADOR, 'carlos'+ @CONTADOR + '@email.com', 'senhadocarlos', 'EUA')
+	IF @CONTADOR = 8000000
+		BEGIN
+			print 'finalizado'
+			BREAK
+		END
 	SET @CONTADOR = @CONTADOR + 1;
 END
 
@@ -196,15 +196,10 @@ JOIN Jogos AS J ON A.jogo_id = J.id;
 
 
 -------------------------FUNÇÃO IF-------------------------
-SELECT
-    titulo,
-    preco,
-    CASE
-        WHEN preco > 0 THEN 'O jogo é pago.'
-        ELSE 'O jogo é gratuito.'
-    END AS StatusPreco
-FROM
-    Jogos
+    IF (select preco from jogos where id = 2) > 0
+		print  'O jogo é pago.'
+    ELSE 
+		print 'O jogo é gratuito.'
 
 
 -------------------------TRIGGER-------------------------
@@ -212,13 +207,12 @@ CREATE TRIGGER TRG_ValidaDataCompra
 ON Compras                       
 AFTER INSERT, UPDATE              
 AS
-BEGIN
+BEGIN 
     IF EXISTS (SELECT 1 FROM inserted WHERE data_compra > CURRENT_TIMESTAMP)
-    BEGIN
-        ROLLBACK TRANSACTION;
+        ROLLBACK;
         print ('Erro: A data da compra não pode ser uma data futura.');
-    END
 END
+
 
 INSERT INTO Compras (usuario_id, jogo_id, preco_pago, data_compra)
 VALUES (1, 4, 0.00, GETDATE());
@@ -257,7 +251,7 @@ FROM
     Compras
 ORDER BY PrecoPagoFormatado desc
 
-
+DROP FUNCTION dbo.fn_FormatarMoeda
 -------------------------INDEX-------------------------
 
 CREATE NONCLUSTERED INDEX Usuarios_Nickname ON Usuarios(pais);
@@ -266,7 +260,7 @@ CREATE NONCLUSTERED INDEX Usuarios_Nickname ON Usuarios(pais);
 
 SELECT id, email, pais, data_cadastro
 FROM Usuarios
-WHERE nickname = 'cjota103001'
+WHERE pais = 'EUA'
 
 
 
